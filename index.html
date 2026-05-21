@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nadi SIMRS Pitch Deck - Modern, Modular, Terintegrasi</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CSS Variables for Premium Dark/Light Themes */
+    :root {
+      --bg-color: #0b0f19;
+      --bg-gradient: radial-gradient(circle at top right, #111827 0%, #030712 100%);
+      --card-bg: rgba(30, 41, 59, 0.45);
+      --card-hover: rgba(30, 41, 59, 0.7);
+      --text-color: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --controls-bg: rgba(11, 15, 25, 0.85);
+      
+      --primary: #0d9488;
+      --primary-hover: #0f766e;
+      --primary-glow: rgba(13, 148, 136, 0.35);
+      --accent: #06b6d4;
+      --accent-glow: rgba(6, 182, 212, 0.25);
+      --danger: #ef4444;
+      --success: #10b981;
+      
+      --transition-speed: 0.4s;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #f8fafc;
+      --bg-gradient: radial-gradient(circle at top right, #eff6ff 0%, #f1f5f9 100%);
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --card-hover: rgba(255, 255, 255, 0.95);
+      --text-color: #0f172a;
+      --text-muted: #475569;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --controls-bg: rgba(248, 250, 252, 0.85);
+      
+      --primary: #0d9488;
+      --primary-hover: #0f766e;
+      --primary-glow: rgba(13, 148, 136, 0.15);
+      --accent: #0284c7;
+      --accent-glow: rgba(2, 132, 199, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-color);
+      min-height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      transition: background var(--transition-speed), color var(--transition-speed);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    /* Top Navigation bar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      border-bottom: 1px solid var(--border-color);
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .logo-icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      fill: #fff;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--text-color) 30%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-icon {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      padding: 0.6rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    /* Presentation Container */
+    .deck-container {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 3rem 6rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Slide Layouts */
+    .slide {
+      display: none;
+      width: 100%;
+      min-height: 500px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 1.5rem;
+      padding: 3rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(16px);
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: visible;
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                  transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  background var(--transition-speed);
+    }
+
+    .slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Slide Elements */
+    .slide-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .slide-title span.accent-text {
+      color: var(--primary);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: stretch;
+    }
+
+    /* Cover Slide Specifics */
+    .cover-slide {
+      text-align: center;
+      align-items: center;
+    }
+
+    .cover-badge {
+      background: var(--primary-glow);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 0.35rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+    }
+
+    .cover-title {
+      font-size: 4rem;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff 30%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    [data-theme="light"] .cover-title {
+      background: linear-gradient(135deg, #0f172a 30%, #475569 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cover-desc {
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin-bottom: 3rem;
+      line-height: 1.5;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .meta-tag {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 1.25rem;
+      border-radius: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+    .meta-tag strong {
+      color: var(--text-color);
+    }
+
+    /* Interactive Target Selector Style */
+    .interactive-selector {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1.5rem 0 2.5rem 0;
+    }
+
+    .select-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      padding: 0.8rem 2rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .select-btn svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      fill: currentColor;
+    }
+
+    .select-btn:hover {
+      border-color: var(--primary);
+      color: var(--text-color);
+    }
+
+    .select-btn.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 10px 20px var(--primary-glow);
+      transform: translateY(-2px);
+    }
+
+    /* Interactive Feature Grid */
+    .features-showcase {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+    }
+
+    .feature-card.inactive {
+      opacity: 0.25;
+      transform: scale(0.96);
+      pointer-events: none;
+      filter: grayscale(1);
+    }
+
+    .feature-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .feature-badge {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .feature-badge.core {
+      background: var(--primary-glow);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .feature-badge.enterprise {
+      background: rgba(147, 51, 234, 0.2);
+      color: #c084fc;
+      border: 1px solid #c084fc;
+    }
+
+    .feature-icon-wrapper {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.75rem;
+      background: var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .feature-card.active-enterprise .feature-icon-wrapper {
+      color: #c084fc;
+    }
+
+    .feature-icon-wrapper svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      fill: currentColor;
+    }
+
+    .feature-card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .feature-card-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Comparison Table Styling */
+    .compare-container {
+      overflow-x: auto;
+      border-radius: 1rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .compare-table th {
+      background: var(--primary-hover);
+      color: white;
+      padding: 1.2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .compare-table td {
+      padding: 1.2rem;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .compare-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .compare-table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .compare-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .compare-badge.convent {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+
+    .compare-badge.nadi {
+      background: var(--primary-glow);
+      color: var(--accent);
+      border: 1px solid var(--primary);
+    }
+
+    /* Footer / Controls bar */
+    .deck-controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 4rem;
+      background: var(--controls-bg);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-color);
+      z-index: 100;
+      transition: background var(--transition-speed), border-color var(--transition-speed);
+    }
+
+    .progress-bar-container {
+      flex: 1;
+      height: 4px;
+      background: var(--border-color);
+      border-radius: 2px;
+      margin: 0 2rem;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+      transition: width 0.3s ease;
+      box-shadow: 0 0 8px var(--primary-glow);
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-nav {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .slide-number {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      min-width: 3rem;
+      text-align: center;
+    }
+
+    /* Steps list */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      padding: 1rem 1.25rem;
+      border-radius: 0.75rem;
+    }
+
+    .step-number {
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.875rem;
+      flex-shrink: 0;
+    }
+
+    .step-text h4 {
+      font-size: 1.05rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-text p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contact-card {
+      background: var(--bg-color);
+      border: 1px solid var(--primary);
+      padding: 2.25rem;
+      border-radius: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-title {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 1.05rem;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.2s;
+    }
+    
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .contact-icon {
+      color: var(--accent);
+    }
+
+    .bullets-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .bullet-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .bullet-check {
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .bullet-row-text h4 {
+      font-size: 1.15rem;
+      color: var(--text-color);
+      margin-bottom: 0.25rem;
+    }
+    
+    .bullet-row-text p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Fullscreen mode adjustments */
+    :-webkit-full-screen .deck-container {
+      max-width: 90%;
+      height: 90%;
+    }
+
+    :-ms-fullscreen .deck-container {
+      max-width: 90%;
+      height: 90%;
+    }
+
+    :fullscreen .deck-container {
+      max-width: 90%;
+      height: 90%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </div>
+      <div class="logo-text">NADI SIMRS</div>
+    </div>
+    <div class="nav-controls">
+      <button class="btn-icon" id="theme-toggle" title="Ubah Tema (Terang/Gelap)">
+        <!-- Sun Icon -->
+        <svg id="theme-sun" style="display:none; width: 1.25rem; height: 1.25rem; fill: currentColor;" viewBox="0 0 24 24">
+          <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41z"/>
+        </svg>
+        <!-- Moon Icon -->
+        <svg id="theme-moon" style="width: 1.25rem; height: 1.25rem; fill: currentColor;" viewBox="0 0 24 24">
+          <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-9 8.3-9.9.5-.1.9.3.8.8-.4 1.7-.1 3.5.7 5.1 1.1 2 2.9 3.5 5.1 4.1.5.1.8.6.6 1.1-.9 3.3-3.9 5.8-7.4 6.8-.7.2-1.4.3-2 .3z"/>
+        </svg>
+      </button>
+      <button class="btn-icon" id="fullscreen-toggle" title="Layar Penuh">
+        <svg style="width: 1.25rem; height: 1.25rem; fill: currentColor;" viewBox="0 0 24 24">
+          <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Deck Container -->
+  <div class="deck-container">
+
+    <!-- Slide 1: Cover -->
+    <div class="slide cover-slide active">
+      <div class="cover-badge">Nadi SIMRS Enterprise & Klinik</div>
+      <h1 class="cover-title">Digitalisasi Layanan Kesehatan yang Modern & Efisien</h1>
+      <p class="cover-desc">Platform Sistem Informasi Manajemen Rumah Sakit terpadu yang dirancang untuk mempercepat pelayanan, meningkatkan pendapatan, dan memenuhi regulasi SatuSehat Kemenkes.</p>
+      <div class="cover-meta">
+        <div class="meta-tag">Lisensi: <strong>Unlimited User (Bebas Biaya Per User)</strong></div>
+        <div class="meta-tag">Arsitektur: <strong>Modular & Skalabel</strong></div>
+        <div class="meta-tag">Regulasi: <strong>SatuSehat HL7 FHIR R4 Ready</strong></div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Latar Belakang & Regulasi -->
+    <div class="slide">
+      <h2 class="slide-title">Tantangan & Regulasi <span class="accent-text">Fasyankes</span></h2>
+      <p class="slide-subtitle">Mengapa Rumah Sakit dan Klinik harus segera bermigrasi ke sistem digital yang patuh aturan nasional?</p>
+      
+      <div class="grid-2col">
+        <div class="bullets-container">
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--danger);" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Antrean Pendaftaran Menumpuk</h4>
+              <p>Pendaftaran manual/paper-based memperlama waktu tunggu pasien dan meningkatkan beban administrasi loket.</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--danger);" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Kebocoran Inventori Farmasi</h4>
+              <p>Kurangnya pemantauan stok obat secara real-time yang memicu hilangnya stok obat tanpa penagihan yang jelas.</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--danger);" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Presensi Staf yang Lemah</h4>
+              <p>Mesin sidik jari konvensional rawan dicurangi (titip absen) dan rentan menjadi media penularan infeksi di rumah sakit.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bullets-container" style="border-left: 1px solid var(--border-color); padding-left: 2rem;">
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--success);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Kewajiban SatuSehat (PMK 24/2022)</h4>
+              <p>Aturan Kementerian Kesehatan mewajibkan seluruh fasilitas kesehatan terintegrasi dengan platform SatuSehat nasional.</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--success);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Standardisasi Rekam Medis (EMR)</h4>
+              <p>Mendukung kodifikasi global rekam medis menggunakan standar ICD-10, HL7 FHIR R4, SNOMED-CT, dan LOINC.</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--success);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Bridging BPJS Kesehatan V-Claim</h4>
+              <p>Sistem wajib terhubung ke server BPJS untuk mempercepat validasi peserta dan meminimalisir kegagalan klaim biaya.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Solusi Modular & Enterprise (INTERACTIVE TOGGLE SLIDE) -->
+    <div class="slide">
+      <h2 class="slide-title">Solusi Sistem <span class="accent-text">Modular Nadi SIMRS</span></h2>
+      <p class="slide-subtitle">Sistem kami menyesuaikan dengan anggaran dan ukuran institusi Anda. Silakan pilih target skala di bawah ini untuk melihat modul fitur yang ditawarkan:</p>
+      
+      <!-- Interactive Toggle -->
+      <div class="interactive-selector">
+        <button class="select-btn active" id="btn-klinik">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+          Klinik Pratama (Core)
+        </button>
+        <button class="select-btn" id="btn-rsud">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          RSUD & Rumah Sakit (Enterprise)
+        </button>
+      </div>
+
+      <!-- Features Showcase Grid -->
+      <div class="features-showcase" id="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card" data-level="core">
+          <div class="feature-card-header">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            </div>
+            <span class="feature-badge core">Core</span>
+          </div>
+          <h3 class="feature-card-title">OCR KTP Offline</h3>
+          <p class="feature-card-desc">Deteksi NIK otomatis dari jepretan kamera tablet secara lokal. Sangat aman dan memotong waktu input manual.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card" data-level="core">
+          <div class="feature-card-header">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <span class="feature-badge core">Core</span>
+          </div>
+          <h3 class="feature-card-title">Family Portal</h3>
+          <p class="feature-card-desc">Memungkinkan satu kepala keluarga mendaftarkan janji temu online untuk anak, lansia, dan pasangan sekaligus.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card" data-level="core">
+          <div class="feature-card-header">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+            </div>
+            <span class="feature-badge core">Core</span>
+          </div>
+          <h3 class="feature-card-title">EMR SOAP & Billing</h3>
+          <p class="feature-card-desc">Format rekam medis SOAP terstandarisasi yang terhubung otomatis ke kasir dan invoice tindakan obat.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card" data-level="enterprise">
+          <div class="feature-card-header">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+            </div>
+            <span class="feature-badge enterprise">Enterprise</span>
+          </div>
+          <h3 class="feature-card-title">SatuSehat FHIR R4</h3>
+          <p class="feature-card-desc">Sinkronisasi data rekam medis terenkripsi langsung ke server Kemenkes RI secara asinkron (BullMQ).</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card" data-level="enterprise">
+          <div class="feature-card-header">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            </div>
+            <span class="feature-badge enterprise">Enterprise</span>
+          </div>
+          <h3 class="feature-card-title">V-Claim & SEP BPJS</h3>
+          <p class="feature-card-desc">Otomatisasi pembuatan Surat Eligibilitas Peserta (SEP) dan verifikasi data BPJS terintegrasi langsung.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card" data-level="enterprise">
+          <div class="feature-card-header">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3v12h3v4h14V8zM5 14V6h10v8H5zm13 4H8v-2h9V10h3v8h-2z"/></svg>
+            </div>
+            <span class="feature-badge enterprise">Enterprise</span>
+          </div>
+          <h3 class="feature-card-title">Ambulance GPS & Face AI</h3>
+          <p class="feature-card-desc">Absensi Contactless Face Recognition staf, serta live dispatch peta navigasi ambulans terintegrasi Google Maps.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Fitur Utama Klinik -->
+    <div class="slide">
+      <h2 class="slide-title">Paket Klinik Pratama: <span class="accent-text">Sistem Core & Efisien</span></h2>
+      <p class="slide-subtitle">Solusi hemat biaya yang didesain spesifik untuk klinik mandiri untuk menyederhanakan alur kerja harian.</p>
+      
+      <div class="grid-2col">
+        <div class="bullets-container">
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--primary);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Jepret KTP (OCR WASM Offline)</h4>
+              <p>Membaca data KTP secara instan di peramban tanpa kirim foto ke server luar. Menjamin keamanan data pasien.</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--primary);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Otomatisasi Stok (Auto-Decrement)</h4>
+              <p>Pengurangan kuantitas persediaan apotek fisik secara otomatis begitu dokter mengirimkan e-resep dan dibayar kasir.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bullets-container">
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--primary);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>WhatsApp Gateway Terpadu</h4>
+              <p>Kirim kode OTP login, nomor antrean aktual, dan jadwal kunjungan kontrol dokter langsung ke chat WhatsApp pasien.</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--primary);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Family Portal & Pendaftaran Online</h4>
+              <p>Kurangi antrean manual di tempat. Pasien dapat melakukan pemesanan jadwal kontrol keluarga jauh hari sebelum datang.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Fitur Utama RSUD (Enterprise) -->
+    <div class="slide">
+      <h2 class="slide-title">Paket RSUD: <span class="accent-text">Skala Enterprise & Kepatuhan Regulasi</span></h2>
+      <p class="slide-subtitle">Modul canggih untuk fasyankes berkapasitas besar dengan beban operasional tinggi dan kebutuhan regulasi nasional.</p>
+      
+      <div class="grid-2col">
+        <div class="bullets-container">
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--accent);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Kepatuhan HL7 FHIR R4 (SatuSehat)</h4>
+              <p>Sinkronisasi asinkronous berkinerja tinggi. Otomatis mengubah SOAP menjadi resource FHIR Encounter, Condition, & Observation.</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--accent);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Bridging BPJS V-Claim & SEP</h4>
+              <p>Mendukung validasi kepesertaan instan dan pembuatan Surat Eligibilitas Peserta secara langsung tanpa repot ganti layar portal BPJS.</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--accent);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Presensi Contactless Face Recognition AI</h4>
+              <p>Presensi biometrik karyawan terdesentralisasi via browser tablet/kamera untuk mencegah penularan penyakit dan kecurangan absensi.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bullets-container" style="border-left: 1px solid var(--border-color); padding-left: 2rem;">
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--accent);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Dispatch Ambulans Pintar (GIS Map)</h4>
+              <p>Memantau posisi live armada ambulans di peta interaktif dan mengirimkan petunjuk arah Google Maps secara instan ke ponsel driver.</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--accent);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Modul IGD Triase, NICU, VK, dan OK</h4>
+              <p>Manajemen prioritas level rawat darurat berkode warna, alokasi bed IGD, manajemen jadwal OK (bedah), dan asuhan keperawatan VK.</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--accent);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Multi-Cabang & HIE (Health Info Exchange)</h4>
+              <p>Mendukung perluasan cabang fasyankes dengan isolasi database per cabang, namun data pasien terintegrasi melalui API SatuSehat.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: Arsitektur & Performa -->
+    <div class="slide">
+      <h2 class="slide-title">Keandalan <span class="accent-text">Teknologi & Keamanan</span></h2>
+      <p class="slide-subtitle">Sistem kami dibangun menggunakan arsitektur modern berkecepatan tinggi tanpa lisensi yang mengikat vendor.</p>
+      
+      <div class="grid-2col">
+        <div class="bullets-container">
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--primary);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Sanggup Menampung 100.000+ Kunjungan/Hari</h4>
+              <p>Menggunakan Next.js 15 Server Actions untuk render hemat memori dan NestJS Modular API yang terdistribusi seimbang.</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--primary);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Penyimpanan Citra Radiologi Efisien</h4>
+              <p>Upload citra rontgen/USG secara instan ke Object Storage dengan kompresi otomatis untuk efisiensi ruang server.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bullets-container" style="border-left: 1px solid var(--border-color); padding-left: 2rem;">
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--primary);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Keamanan Data Tingkat HIPAA</h4>
+              <p>Semua komputasi data sensitif (OCR KTP & pemrosesan wajah) dijalankan langsung di browser sisi klien (Zero Server Leak).</p>
+            </div>
+          </div>
+          <div class="bullet-row">
+            <div class="bullet-check">
+              <svg style="width: 1.5rem; height: 1.5rem; fill: var(--primary);" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+            <div class="bullet-row-text">
+              <h4>Pencarian Nama Pasien Kurang dari 0.1 Detik</h4>
+              <p>Menggunakan basis data PostgreSQL 16 dengan GIN Trigram index. Tetap cepat walau data pasien telah mencapai jutaan baris.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: Komparasi SIMRS -->
+    <div class="slide">
+      <h2 class="slide-title">Mengapa Memilih <span class="accent-text">Nadi SIMRS</span>?</h2>
+      <p class="slide-subtitle">Analisis perbandingan Nadi SIMRS dengan sistem informasi rumah sakit konvensional di pasar.</p>
+      
+      <div class="compare-container">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Aspek Evaluasi</th>
+              <th>SIMRS Tradisional (Konvensional)</th>
+              <th>Ekosistem Nadi SIMRS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Biaya Lisensi</strong></td>
+              <td><span class="compare-badge convent">Mahal & Mengikat</span> Biaya per user/dokter, lisensi lock-in vendor.</td>
+              <td><span class="compare-badge nadi">Open-Source Core</span> Lisensi unlimited user bebas biaya tersembunyi.</td>
+            </tr>
+            <tr>
+              <td><strong>Pendaftaran</strong></td>
+              <td><span class="compare-badge convent">Loket Manual</span> Antrean menumpuk, input ketik manual, rawan typo.</td>
+              <td><span class="compare-badge nadi">Self-Service</span> Scan KTP OCR instan & booking via Family Portal online.</td>
+            </tr>
+            <tr>
+              <td><strong>Kepatuhan Regulasi</strong></td>
+              <td><span class="compare-badge convent">Modul Tambahan</span> Integrasi SatuSehat / BPJS sering dikenai biaya upgrade.</td>
+              <td><span class="compare-badge nadi">Native Integrated</span> HL7 FHIR R4 & BPJS V-Claim siap pakai sejak awal.</td>
+            </tr>
+            <tr>
+              <td><strong>Absensi Karyawan</strong></td>
+              <td><span class="compare-badge convent">Fingerprint Fisik</span> Rawan virus penyakit, antrean absen, mudah dititip.</td>
+              <td><span class="compare-badge nadi">Face Recognition AI</span> Presensi contactless aman via tablet karyawan.</td>
+            </tr>
+            <tr>
+              <td><strong>Kecepatan Cari</strong></td>
+              <td><span class="compare-badge convent">Lambat di Skala Besar</span> Query lemot saat data pasien mencapai puluhan ribu.</td>
+              <td><span class="compare-badge nadi">Ultra Cepat < 0.1s</span> PostgreSQL 16 + GIN Trigram index untuk pencarian instan.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Slide 8: Skema Implementasi & Hubungi Kami -->
+    <div class="slide">
+      <h2 class="slide-title">Alur Implementasi & <span class="accent-text">Dukungan Kontak</span></h2>
+      <p class="slide-subtitle">Kami mendampingi proses digitalisasi fasilitas kesehatan Anda dari awal hingga go-live sertifikasi.</p>
+      
+      <div class="grid-2col">
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-number">1</div>
+            <div class="step-text">
+              <h4>Analisis & Pemilihan Modul (Assessment)</h4>
+              <p>Menganalisis skala fasyankes Anda untuk menentukan modul (Core/Klinik saja atau Enterprise penuh).</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-number">2</div>
+            <div class="step-text">
+              <h4>Penyusunan Server & Deploy</h4>
+              <p>Konfigurasi server Cloud untuk klinik mandiri atau server lokal on-premise untuk standar keamanan RSUD.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-number">3</div>
+            <div class="step-text">
+              <h4>Migrasi Data & Pelatihan Staf</h4>
+              <p>Pelatihan terarah untuk dokter, perawat, apoteker, kasir, dan migrasi riwayat database medis pasien lama.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-number">4</div>
+            <div class="step-text">
+              <h4>Go-Live & Pendampingan SatuSehat</h4>
+              <p>Sistem aktif penuh dengan sinkronisasi rekam medis digital ke platform Kemenkes RI SatuSehat.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <h3 class="contact-title">Nadi SIMRS Enterprise Team</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;">Hubungi kami untuk demonstrasi produk secara langsung, penawaran skema harga modular, dan konsultasi kebutuhan fasyankes Anda.</p>
+          
+          <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+            <a href="mailto:simrs@nadi.local" class="contact-item">
+              <svg class="contact-icon" style="width: 1.5rem; height: 1.5rem; fill: currentColor;" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+              <span>simrs@nadi.local</span>
+            </a>
+            <a href="https://nadi.local" class="contact-item">
+              <svg class="contact-icon" style="width: 1.5rem; height: 1.5rem; fill: currentColor;" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+              </svg>
+              <span>nadi.local / docs.nadi.local</span>
+            </a>
+            <a href="https://wa.me/6281234567890" class="contact-item">
+              <svg class="contact-icon" style="width: 1.5rem; height: 1.5rem; fill: currentColor;" viewBox="0 0 24 24">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zm5.8 14.16c-.24.67-1.19 1.24-1.64 1.29-.45.05-.89.24-2.88-.54-2.55-1-4.2-3.6-4.32-3.77-.13-.17-1.07-1.42-1.07-2.72 0-1.29.68-1.93.92-2.18.24-.25.53-.31.71-.31h.51c.17 0 .4.06.63.54.24.54.83 2.02.9 2.16.07.15.12.32.02.5-.1.17-.15.3-.3.47-.15.17-.32.39-.46.54-.16.17-.33.35-.14.68.19.32.84 1.39 1.8 2.25 1.24 1.11 2.28 1.45 2.61 1.62.33.17.52.14.71-.08.19-.22.82-.96 1.04-1.29.22-.33.45-.27.75-.16.3.11 1.91.9 2.24 1.07.33.17.55.25.63.39.08.14.08.82-.16 1.49z"/>
+              </svg>
+              <span>+62 812-3456-7890</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deck controls in absolute positions inside container -->
+    <div class="deck-controls">
+      <button class="btn-nav" id="btn-prev" disabled>
+        <svg style="width: 1.25rem; height: 1.25rem; fill: currentColor;" viewBox="0 0 24 24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+        Kembali
+      </button>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+      <span class="slide-number" id="slide-num">1 / 8</span>
+      <button class="btn-nav" id="btn-next">
+        Lanjut
+        <svg style="width: 1.25rem; height: 1.25rem; fill: currentColor;" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    // Theme Switcher Logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeSun = document.getElementById('theme-sun');
+    const themeMoon = document.getElementById('theme-moon');
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      let newTheme = 'light';
+      if (currentTheme === 'light') {
+        newTheme = 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcons(newTheme);
+    });
+
+    function updateThemeIcons(theme) {
+      if (theme === 'light') {
+        themeSun.style.display = 'block';
+        themeMoon.style.display = 'none';
+      } else {
+        themeSun.style.display = 'none';
+        themeMoon.style.display = 'block';
+      }
+    }
+
+    // Set saved theme on load
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcons(savedTheme);
+
+    // Fullscreen logic
+    const fullscreenToggle = document.getElementById('fullscreen-toggle');
+    fullscreenToggle.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.error(`Gagal masuk layar penuh: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
+    // Slides Navigation Logic
+    const slides = document.querySelectorAll('.slide');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const slideNum = document.getElementById('slide-num');
+    const progressFill = document.getElementById('progress-fill');
+    let currentSlideIndex = 0;
+
+    function updateSlide() {
+      // Toggle active classes
+      slides.forEach((slide, idx) => {
+        if (idx === currentSlideIndex) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      // Update buttons disable state
+      btnPrev.disabled = currentSlideIndex === 0;
+      btnNext.disabled = currentSlideIndex === slides.length - 1;
+
+      // Update text indicators
+      slideNum.textContent = `${currentSlideIndex + 1} / ${slides.length}`;
+
+      // Update progress bar
+      const progressPercent = ((currentSlideIndex + 1) / slides.length) * 100;
+      progressFill.style.width = `${progressPercent}%`;
+    }
+
+    btnPrev.addEventListener('click', () => {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        updateSlide();
+      }
+    });
+
+    btnNext.addEventListener('click', () => {
+      if (currentSlideIndex < slides.length - 1) {
+        currentSlideIndex++;
+        updateSlide();
+      }
+    });
+
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') {
+        if (currentSlideIndex < slides.length - 1) {
+          currentSlideIndex++;
+          updateSlide();
+        }
+      } else if (e.key === 'ArrowLeft') {
+        if (currentSlideIndex > 0) {
+          currentSlideIndex--;
+          updateSlide();
+        }
+      }
+    });
+
+    // Interactive Target Selector Logic (Slide 3)
+    const btnKlinik = document.getElementById('btn-klinik');
+    const btnRsud = document.getElementById('btn-rsud');
+    const featureCards = document.querySelectorAll('.feature-card');
+
+    function filterFeatures(target) {
+      if (target === 'klinik') {
+        btnKlinik.classList.add('active');
+        btnRsud.classList.remove('active');
+        
+        featureCards.forEach(card => {
+          if (card.getAttribute('data-level') === 'enterprise') {
+            card.classList.add('inactive');
+            card.classList.remove('active-enterprise');
+          } else {
+            card.classList.remove('inactive');
+          }
+        });
+      } else {
+        btnRsud.classList.add('active');
+        btnKlinik.classList.remove('active');
+        
+        featureCards.forEach(card => {
+          card.classList.remove('inactive');
+          if (card.getAttribute('data-level') === 'enterprise') {
+            card.classList.add('active-enterprise');
+          } else {
+            card.classList.remove('active-enterprise');
+          }
+        });
+      }
+    }
+
+    btnKlinik.addEventListener('click', () => filterFeatures('klinik'));
+    btnRsud.addEventListener('click', () => filterFeatures('rsud'));
+
+    // Initialize slides and interactive features filter
+    updateSlide();
+    filterFeatures('klinik');
+  </script>
+</body>
+</html>
